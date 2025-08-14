@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Component //@Configuration 어노테이션에 @Component 어노테이션 포함됨
+@Component
 public @interface Configuration {
 }
