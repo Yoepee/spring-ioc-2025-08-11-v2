@@ -1,11 +1,12 @@
 package com.ll.framework.ioc;
 
 import com.ll.framework.ioc.annotations.Component;
-import com.ll.standard.util.Ut;
 import org.reflections.Reflections;
 
 import java.util.Set;
 import java.util.stream.Stream;
+
+import static com.ll.standard.util.Ut.str.lcfirst;
 
 /**
  * 빈 등록 대상 클래스를 스캔하는 역할의 클래스
@@ -26,7 +27,7 @@ public class BeanScanner {
               .flatMap(Set::stream)
               .filter(clazz -> !clazz.isInterface() && !clazz.isAnnotation() && !clazz.isEnum())
               .forEach(clazz -> {
-                  String beanName = Ut.str.lcfirst(clazz.getSimpleName());
+                  String beanName = lcfirst(clazz.getSimpleName());
                   beanRegistry.registerBeanClass(beanName, clazz);
               });
     }
