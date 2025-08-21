@@ -1,14 +1,23 @@
 package com.ll.framework.ioc;
 
-public class ApplicationContext {
-    public ApplicationContext(String basePackage) {
+import lombok.RequiredArgsConstructor;
 
-    }
+@RequiredArgsConstructor
+public class ApplicationContext {
+    private final BeanRegistry beanRegistry = new BeanRegistry();
+    private final BeanScanner beanScanner;
+    private final DependencyResolver dependencyResolver;
 
     public void init() {
+        beanScanner.scan();
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T genBean(String beanName) {
-        return null;
+        if (beanRegistry.containsBean(beanName)) {
+            return (T) beanRegistry.getBean(beanName);
+        }
+
+        return (T) dependencyResolver.createBean(beanName);
     }
 }
